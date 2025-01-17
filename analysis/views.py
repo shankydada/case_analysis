@@ -9,7 +9,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
 # Load your dataset
-file_path = 'D:/case_analysis/sherlock_holmes_cases.csv'
+file_path = '/workspaces/case_analysis/case_analysis/sherlock_holmes_cases.csv'
 df = pd.read_csv(file_path)
 
 # Preprocessing the data
