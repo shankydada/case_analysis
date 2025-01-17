@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Case Analysis</title>
+</head>
+<body>
+    <h1>Case Analysis Tool</h1>
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="description" placeholder="Enter case description here..."></textarea><br>
+        <input type="submit" value="Analyze Case">
+    </form>
+
+    {% if status %}
+    <h2>Predicted Status: {{ status }}</h2>
+    <h3>Observations:</h3>
+    <ul>
+        {% for observation in observations %}
+        <li>{{ observation }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Leads:</h3>
+    <ul>
+        {% for lead in leads %}
+        <li>
+            Lead: {{ lead.Lead }}<br>
+            Confidence Score: {{ lead.Confidence_Score }}<br>
+            Suggested Action: {{ lead.Suggested_Action }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Next Steps:</h3>
+    <ul>
+        {% for step in next_steps %}
+        <li>{{ step }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>

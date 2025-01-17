@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Analysis App</title>
+</head>
+<body>
+    <h1>Case Analysis App</h1>
+    <p>Upload a file or enter a case description for predictions.</p>
+
+    <!-- Form to upload a file -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="file">Upload CSV File:</label>
+        <input type="file" name="file" id="file">
+        <button type="submit">Upload</button>
+    </form>
+
+    <hr>
+
+    <!-- Form to submit a single case description -->
+    <form method="post">
+        {% csrf_token %}
+        <label for="case_description">Case Description:</label>
+        <textarea name="case_description" id="case_description" rows="4" cols="50"></textarea>
+        <button type="submit">Analyze</button>
+    </form>
+</body>
+</html>
