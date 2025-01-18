@@ -1,42 +1,174 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Case Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro&family=Maven+Pro:wght@400..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Maven Pro', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url(https://images.pexels.com/photos/10481295/pexels-photo-10481295.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+            background-position: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #333;
+            text-align: center;
+        }
+
+        .cntnt {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 2;
+        }
+
+        h1 {
+            background-color: #34b3ea6d;
+            color: rgb(255, 255, 255);
+            padding: 20px;
+        }
+
+        form {
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.434);
+            border: 3px solid #ffffff;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.238);
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.368);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-family: 'Anonymous Pro', monospace;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #analysis-results {
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.256);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+            color: rgb(255, 255, 255);
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        h2, h3 {
+            color: hsl(122, 39%, 49%);
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: orange; }
+        }
+
+        video {
+            object-fit: cover;
+            position: absolute;
+            width: 100%;
+            height: 120%;
+            z-index: 1;
+            left: 0;
+            top: 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Case Analysis Tool</h1>
-    <form method="post">
-        {% csrf_token %}
-        <textarea name="description" placeholder="Enter case description here..."></textarea><br>
-        <input type="submit" value="Analyze Case">
-    </form>
+    <div class="vdo">
+        <video autoplay muted loop>
+            <source src="../../../vdo/vdo1.mp4" type="video/mp4" />
+        </video>
+    </div>
 
-    {% if status %}
-    <h2>Predicted Status: {{ status }}</h2>
-    <h3>Observations:</h3>
-    <ul>
-        {% for observation in observations %}
-        <li>{{ observation }}</li>
-        {% endfor %}
-    </ul>
+    <div class="cntnt">
+        <h1>Case Analysis Tool</h1>
+        <form method="post">
+            {% csrf_token %}
+            <textarea name="description" placeholder="Enter case description here..."></textarea><br>
+            <input type="submit" value="Analyze Case">
+        </form>
 
-    <h3>Leads:</h3>
-    <ul>
-        {% for lead in leads %}
-        <li>
-            Lead: {{ lead.Lead }}<br>
-            Confidence Score: {{ lead.Confidence_Score }}<br>
-            Suggested Action: {{ lead.Suggested_Action }}
-        </li>
-        {% endfor %}
-    </ul>
+        {% if status %}
+        <div id="analysis-results" style="color:red">
+            <h2>Predicted Status: {{ status }}</h2>
+            <h3>Observations:</h3>
+            <ul>
+                {% for observation in observations %}
+                <li>{{ observation }}</li>
+                {% endfor %}
+            </ul>
 
-    <h3>Next Steps:</h3>
-    <ul>
-        {% for step in next_steps %}
-        <li>{{ step }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+            <h3 style="color:aqua">Leads:</h3>
+            <ul style="color:#45a049">
+                {% for lead in leads %}
+                <li>
+                    Lead: {{ lead.Lead }}<br>
+                    Confidence Score: {{ lead.Confidence_Score }}<br>
+                    Suggested Action: {{ lead.Suggested_Action }}
+                </li>
+                {% endfor %}
+            </ul>
+
+            <h3>Next Steps:</h3>
+            <ul>
+                {% for step in next_steps %}
+                <li>{{ step }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
